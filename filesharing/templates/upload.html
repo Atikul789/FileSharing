@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>File Upload</title>
+</head>
+<script crossorigin="anonymous"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+        src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<!-- Bootstrap core CSS -->
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+
+<style>
+    .center {
+  margin: auto;
+  width: 50%;
+  border: 3px dotted blue;
+  padding: 10px;
+}
+
+
+
+
+</style>
+
+<body>
+<body data-gr-c-s-loaded="true">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="http://127.0.0.1:8000/file/Lists/" style="display: inline;">File List</a>
+                <a class="nav-link" href="http://127.0.0.1:8000/file/Upload/" style="display: inline;">Upload</a>
+                <a class="nav-link" href="http://127.0.0.1:8000/file/Block/" style="display: inline;">Block File</a>
+                <a class="nav-link" href="http://127.0.0.1:8000/file/Unblock/" style="display: inline;">UnBlock File</a>
+                 <a class="nav-link" href="http://127.0.0.1:8000/file/Admin/" style="display: inline;">Admin</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<!-- HTML5 Input Form Elements -->
+<div class="center" style=" margin-top:200px; border:none">
+    <h2> File Upload </h2>
+</div>
+<div class="center">
+    <label for="file">File Name</label>
+    <input id="filename" style="margin-bottom:20px;" type="text">
+
+    <br>
+    <label for="file">Choose file to upload</label>
+    <input id="fileupload" name="fileupload" style="margin-bottom:10px;" type="file"/>
+    <br>
+    <button class="btn btn-success" id="upload-button" onclick="uploadFile()"> Upload</button>
+</div>
+
+<!-- Ajax JavaScript File Upload Logic -->
+<script>
+async function uploadFile() {
+    let formData = new FormData();
+    let filename = document.getElementById('filename').value;
+    formData.append("file", fileupload.files[0]);
+    formData.append("name", filename);
+    if (fileupload.files[0].size > 10000000) {
+
+        alert('File is too large');
+    } else {
+
+        await fetch('http://127.0.0.1:8000/file/upload/', {
+            method: "POST",
+            body: formData
+        });
+        alert('The file has been uploaded successfully.');
+    }
+
+}
+
+
+
+
+
+
+
+</script>
+</body>
+</html>
